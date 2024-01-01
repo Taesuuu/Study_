@@ -7,7 +7,7 @@ namespace Taesuuu
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("TEST");
+            
         }
     }
 }
