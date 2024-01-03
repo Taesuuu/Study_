@@ -7,35 +7,23 @@ namespace Taesuuu
     {
         static void Main(string[] args)
         {
-            string skill = "CBD";	
-            string[] skill_tree = new string[] {"BACDE", "CBADF", "AECB", "BDA"};
-            int temp = Solution(skill, skill_tree);
+            int temp = Solution(new int[] {5,1,3,7}, new int[]{2,2,6,8});
             Console.WriteLine(temp);
         }
 
-        public static int Solution(string skill, string[] skill_trees) {
+        public static int Solution(int[] A, int[] B) {
             int answer = 0;
-            try {
-                for(int i = 0; i < skill_trees.Length; i++) {
-                    bool isCheck = false;
-                    int count = 0;
-                    char[] temp = skill_trees[i].ToCharArray();
-                    for(int j = 0; j < temp.Length; j++) {
-                        if(count < skill.IndexOf(temp[j])) {
-                            isCheck = true;
-                            break;
-                        }
-                        if(count == skill.IndexOf(temp[j])) {
-                            count++;
-                        }
-                    }
-                    if(!isCheck) {
+            Array.Sort(A);
+            Array.Sort(B);
+            int index = -1;
+            for(int i = 0; i < A.Length; i++) {
+                for(int j = index + 1; j < A.Length; j++) {
+                    if(A[i] < B[j]) {
                         answer++;
+                        index = j;
+                        break;
                     }
                 }
-            }
-            catch (Exception e) {
-                Console.WriteLine(e);
             }
             return answer;
         }
