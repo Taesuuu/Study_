@@ -7,25 +7,48 @@ namespace Taesuuu
     {
         static void Main(string[] args)
         {
-            int temp = Solution(new int[] {5,1,3,7}, new int[]{2,2,6,8});
-            Console.WriteLine(temp);
+            Console.WriteLine(Solution("ULURRDLLU"));
         }
-
-        public static int Solution(int[] A, int[] B) {
+        public static int Solution(string dirs) {
+            
             int answer = 0;
-            Array.Sort(A);
-            Array.Sort(B);
-            int index = -1;
-            for(int i = 0; i < A.Length; i++) {
-                for(int j = index + 1; j < A.Length; j++) {
-                    if(A[i] < B[j]) {
-                        answer++;
-                        index = j;
-                        break;
+            int[,,,] check = new int[11, 11, 11, 11];
+            int x = 5, y = 5;
+
+            for (int i = -1; ++i < dirs.Length;)
+            {
+                int oldX = x, oldY = y;
+                char direction = dirs[i];
+
+                if (direction == 'U') ++y;
+                if (direction == 'D') --y;
+                if (direction == 'R') ++x;
+                if (direction == 'L') --x;
+
+                x = MaxOrMin(x);
+                y = MaxOrMin(y);
+
+                if (oldX != x || oldY != y)
+                    if (check[oldX, oldY, x, y] == 0)
+                    {
+                        check[oldX, oldY, x, y] = 1;
+                        check[x, y, oldX, oldY] = 1;
+                        ++answer;
                     }
-                }
             }
+
             return answer;
         }
+
+        static int MaxOrMin(int num) {
+            if (num >= 10) {
+                return 10;
+            }
+            if(num <= 0) {
+                return 0;
+            }
+            return num;
+        }
+
     }
 }
